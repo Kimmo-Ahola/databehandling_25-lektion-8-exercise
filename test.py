@@ -5,6 +5,8 @@ from typing import Annotated, List, Optional
 from enum import Enum as PyEnum
 import random
 
+from utils import Utils
+
 file_path = "dataset/imdb.jsonl"
 
 str_255 = Annotated[str, mapped_column(String(255))]
@@ -16,6 +18,8 @@ class Base(MappedAsDataclass, DeclarativeBase):
 class RoleType(PyEnum):
     LEADING = "Leading"
     SUPPORT = "Support"
+    EXTRA = "Extra"
+    CAMEO = "Cameo"
 
 class Cast(Base):
     __tablename__ = "cast"
@@ -146,7 +150,7 @@ with Session(engine) as session:
 
             uq_movies.add(url)
 
-            # mov = Movie(**data)
+            # mov = Movie(**data) can only be used if we implement ALL keywords from the json file
 
             movie = Movie(url=url, 
                           name=data['name'], 
@@ -182,10 +186,7 @@ with Session(engine) as session:
             for d in data.get("directors", []):
                 director = session.query(Director).filter(Director.full_name == d).first()
                 if director is None:
-                   split_name = d.split()
-                   first_name = split_name[0]
-                   last_name = split_name[1] if len(split_name) > 1 else ""
-                   
+                   first_name, last_name = Utils.split_name(d)                   
                    session.add(Director(first_name=first_name, last_name=last_name))
                 if director is not None:
                     movie.directors.append(director)
@@ -195,13 +196,11 @@ with Session(engine) as session:
                 actor_name = c['actor']
                 role = c['role'] if c['role'] is not None else "Unknown"
 
-                split_name = actor_name.split()
+                first_name, last_name = Utils.split_name(actor_name)
 
-                first_name = split_name[0]
-                last_name = split_name[1] if len(split_name) > 1 else ""
-                
                 actor = Actor(first_name=first_name, last_name=last_name)
 
                 movie.cast.append(Cast(actor=actor, role=role, role_type=random.choice(roletypes), salary=random.randrange(lower_bound, higher_bound)))
 
         session.commit()
+
