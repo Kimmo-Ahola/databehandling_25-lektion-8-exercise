@@ -85,6 +85,11 @@ class Actor(Base):
     first_name: Mapped[str_255]
     last_name: Mapped[Optional[str_255]]
 
+    full_name: Mapped[str] = mapped_column(String(1000),
+        Computed("CONCAT(IFNULL(first_name, ''), ' ', IFNULL(last_name, ''))"),
+        init=False,
+    )
+
     cast_roles: Mapped[List["Cast"]] = relationship(back_populates="actor", init=False)
 
 class Movie(Base):
@@ -128,79 +133,94 @@ class Writer(Base):
     first_name: Mapped[str_255]
     last_name: Mapped[Optional[str_255]]
 
-    movies: Mapped[List["Movie"]] = relationship(secondary="movie_writer", back_populates="writers")
+    full_name: Mapped[str] = mapped_column(String(1000),
+        Computed("CONCAT(IFNULL(first_name, ''), ' ', IFNULL(last_name, ''))"),
+        init=False,
+    )
 
-engine = create_engine("mysql+pymysql://kimmo:kimmo123@localhost:3306/movie_db")
+    movies: Mapped[List["Movie"]] = relationship(secondary="movie_writer", back_populates="writers", init=False)
 
-Base.metadata.drop_all(engine)
-Base.metadata.create_all(engine)
+engine = create_engine("mysql+pymysql://user:user123@localhost:3306/movie_db")
 
-uq_movies: set[str] = set() # the json file contains duplicates. 2 of each row
-roletypes = list(RoleType)
-lower_bound, higher_bound = 1_000_000, 100_000_000
+def create_movie_database():
+    Base.metadata.drop_all(engine)
+    Base.metadata.create_all(engine)
 
-with Session(engine) as session:
-    with open(file_path, "r", encoding="utf-8") as f:
-        for line in f:
-            data = json.loads(line)
-            url = data['url']
+    uq_movies: set[str] = set() # the json file contains duplicates. 2 of each row. We use a set to filter out duplicates.
+    roletypes = list(RoleType)
+    lower_bound, higher_bound = 1_000_000, 100_000_000
 
-            if url in uq_movies:
-                continue
+    with Session(engine) as session:
+        with open(file_path, "r", encoding="utf-8") as f:
+            for line in f:
+                data = json.loads(line)
+                url = data['url']
 
-            uq_movies.add(url)
+                if url in uq_movies:
+                    continue
 
-            # mov = Movie(**data) can only be used if we implement ALL keywords from the json file
+                uq_movies.add(url)
 
-            movie = Movie(url=url, 
-                          name=data['name'], 
-                          score=data['score'], 
-                          top_rate=data['top_rate'], 
-                          year=data['year'], 
-                          length=data['length'], 
-                          popularity=data['popularity'], 
-                          storyline=data['storyline'],
-                          gross_worldwide=data['gross_worldwide'],
-                          budget=data['budget'],
-                          wins=data['wins'],
-                          nominations=data['nominations'],
-                          origin_language=data['origin_language']
-                          )
-            
-            session.add(movie)
+                # mov = Movie(**data) # can only be used if we implement ALL keywords from the json file. 
+                # Currently the origin countries (many-to-many between movies and countries) is missing
+                # Needs to be optional because there are a lot of null values in countries.
 
-            for g in data.get("genres", []):
-                genre = session.get(Genre, g)
-                if genre is None:
-                    session.add(Genre(name=g))
-                if genre is not None:
-                    movie.genres.append(genre)
+                movie = Movie(url=url, 
+                            name=data['name'], 
+                            score=data['score'], 
+                            top_rate=data['top_rate'], 
+                            year=data['year'], 
+                            length=data['length'], 
+                            popularity=data['popularity'], 
+                            storyline=data['storyline'],
+                            gross_worldwide=data['gross_worldwide'],
+                            budget=data['budget'],
+                            wins=data['wins'],
+                            nominations=data['nominations'],
+                            origin_language=data['origin_language']
+                            )
+                
+                session.add(movie)
 
-            for pc in data.get("production_companies", []):
-                production_company = session.get(ProductionCompany, pc)
-                if production_company is None:
-                    session.add(ProductionCompany(name=pc))
-                if production_company is not None:
-                    movie.production_companies.append(production_company)
+                for g in data.get("genres", []):
+                    genre = session.get(Genre, g)
+                    if genre is None:
+                        session.add(Genre(name=g))
+                    if genre is not None:
+                        movie.genres.append(genre)
 
-            for d in data.get("directors", []):
-                director = session.query(Director).filter(Director.full_name == d).first()
-                if director is None:
-                   first_name, last_name = Utils.split_name(d)                   
-                   session.add(Director(first_name=first_name, last_name=last_name))
-                if director is not None:
-                    movie.directors.append(director)
+                for pc in data.get("production_companies", []):
+                    production_company = session.get(ProductionCompany, pc)
+                    if production_company is None:
+                        session.add(ProductionCompany(name=pc))
+                    if production_company is not None:
+                        movie.production_companies.append(production_company)
+
+                for d in data.get("directors", []):
+                    director = session.query(Director).filter(Director.full_name == d).first()
+                    if director is None:
+                        first_name, last_name = Utils.split_name(d)                   
+                        session.add(Director(first_name=first_name, last_name=last_name))
+                    if director is not None:
+                        movie.directors.append(director)
+
+                for w in data.get("writers", []):
+                    writer = session.query(Writer).filter(Writer.full_name == w).first()
+                    if writer is None:
+                        first_name, last_name = Utils.split_name(w)                   
+                        session.add(Writer(first_name=first_name, last_name=last_name))
+                    if writer is not None:
+                        movie.writers.append(writer)
 
 
-            for c in data.get("cast", []):
-                actor_name = c['actor']
-                role = c['role'] if c['role'] is not None else "Unknown"
+                for c in data.get("cast", []):
+                    actor_name = c['actor']
+                    role = c['role'] if c['role'] is not None else "Unknown"
 
-                first_name, last_name = Utils.split_name(actor_name)
+                    first_name, last_name = Utils.split_name(actor_name)
 
-                actor = Actor(first_name=first_name, last_name=last_name)
+                    actor = Actor(first_name=first_name, last_name=last_name)
 
-                movie.cast.append(Cast(actor=actor, role=role, role_type=random.choice(roletypes), salary=random.randrange(lower_bound, higher_bound)))
+                    movie.cast.append(Cast(actor=actor, role=role, role_type=random.choice(roletypes), salary=random.randrange(lower_bound, higher_bound)))
 
-        session.commit()
-
+            session.commit()
