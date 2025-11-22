@@ -1,9 +1,8 @@
-from utils import Utils
-from test import create_movie_database
+from services.seeding import Seeding
 # TODO add stuff here
 # Need to figure out some exercises
 # create a menu?
 
 
 if __name__ == '__main__':
-    create_movie_database()
+    Seeding.create_movie_database()
