@@ -1,4 +1,4 @@
-import json, random
+import json, random, os
 from database.db import My_Session, engine
 from models.actor import Actor
 from models.base import Base
@@ -17,12 +17,24 @@ class Seeding():
         Base.metadata.drop_all(engine)
         Base.metadata.create_all(engine)
 
-        file_path = "dataset/imdb.jsonl"
+        base_dir = os.path.dirname(os.path.abspath(__file__))
+        file_path = os.path.join(base_dir, "..", "datasets", "imdb.jsonl")
+        file_path = os.path.normpath(file_path)
+
+        # file_path = "datasets/imdb.jsonl" or use this version. Remember that the file path is relative to the main.py file
+
         uq_movies: set[str] = set() # the json file contains duplicates. 2 of each row. We use a set to filter out duplicates.
         roletypes = list(RoleType) # We fake role types as well, just to show that we can extend a bridge table with extra columns
         lower_bound, higher_bound = 1_000_000, 100_000_000 # We fake some salaries, this is not real data.
 
         with My_Session() as session:
+
+            count = session.query(Movie).count()
+
+            if count != 0: # We skip if there are already movies
+                print("Movies are already seeded.")
+                return
+
             with open(file_path, "r", encoding="utf-8") as f:
                 for line in f:
                     data = json.loads(line)
@@ -31,7 +43,7 @@ class Seeding():
                     if url in uq_movies: # Skip duplicates. Each movie has a unique url
                         continue
 
-                    uq_movies.add(url)
+                    uq_movies.add(url) # else add to the set to keep track
 
                     # mov = Movie(**data) # can only be used if we implement ALL keywords from the json file. 
                     # Currently the origin countries (many-to-many between movies and countries) is missing
@@ -53,6 +65,13 @@ class Seeding():
                                 )
                     
                     session.add(movie)
+
+                    # We read the data to our tables from the jsonl file
+                    # the session keeps track of it all
+
+                    # Check the utils file to see how it splits the full name into first and last names
+                    # Also take a look at directors.py, actors.py to see the computed columns for full_name
+
 
                     for g in data.get("genres", []):
                         genre = session.get(Genre, g)

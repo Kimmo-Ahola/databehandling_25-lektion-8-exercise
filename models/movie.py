@@ -24,7 +24,7 @@ class Movie(Base):
     wins: Mapped[Optional[str_255]]
     nominations: Mapped[Optional[str_255]]
 
-
+    # relationships are here
     genres: Mapped[List["Genre"]] = relationship(secondary="movie_genre", back_populates="movies", init=False) # type: ignore
     cast: Mapped[List["Cast"]] = relationship(back_populates="movie", init=False) # type: ignore
 
