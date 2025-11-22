@@ -5,7 +5,7 @@ Först skapar ni en venv som alltid
 Sedan måste ni installera relevanta bibliotek i koden
 - pip install -r requirements.txt
 
-Implementation av alembic saknar för närvarande. En bra övning är att ni tar bort:
+Implementation av alembic saknas för närvarande. En bra övning är att ni tar bort:
 - Base.metadata.drop_all()
 - Base.metadata.create_all()
 
@@ -17,3 +17,8 @@ Klicka runt och försök att förstå strukturen och varför vi vill dela upp ko
 
 Datan som hamnar i er databas är tagen från en helt slumpmässig källa och ni kommer att märka att det finns en hel del fel i datan.
 Detta kallas för "otvättad" data och därför kan vissa datatyper tyckas märkliga. Många kolumner är till exempel i VARCHAR för att hantera detta.
+
+Fokus är såklart på att ni ska skriva queries med SQLAlchemy men ni bör också skriva samma queries i MySQL för att öva på det också. Dubbelkolla gärna att ni får samma svar.
+
+## TODO
+Lägg in olika övningar här
