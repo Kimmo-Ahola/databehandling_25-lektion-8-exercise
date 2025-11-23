@@ -11,6 +11,8 @@ Implementation av alembic saknas för närvarande. En bra övning är att ni tar
 
 från seeding.py och kör migrationer med alembic istället.
 
+Glöm inte att ändra connection string i db.py till er egen och se till att databasen är skapad innan ni kör.
+
 ## Om repot
 Ni har nu en lite större kodbas och tanken är att ni ska lära er att hitta runt i koden.
 Klicka runt och försök att förstå strukturen och varför vi vill dela upp kodbasen i olika mappar och filer.
