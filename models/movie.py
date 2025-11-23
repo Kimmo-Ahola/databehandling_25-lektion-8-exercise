@@ -11,11 +11,11 @@ class Movie(Base):
 
     id: Mapped[int_pk] = mapped_column(init=False)
     url: Mapped[Optional[str_255]]
-    name: Mapped[Optional[str_255]]
+    name: Mapped[Optional[str_255]] = mapped_column(name='title')
     score: Mapped[Optional[float]]
     top_rate: Mapped[Optional[str_255]]
-    year: Mapped[Optional[int]]
-    length: Mapped[Optional[str_255]]
+    year: Mapped[Optional[int]] = mapped_column(name='release_year')
+    length: Mapped[Optional[str_255]] = mapped_column(name='duration')
     popularity: Mapped[Optional[str_255]]
     storyline: Mapped[Optional[str]] = mapped_column(Text)
     gross_worldwide: Mapped[Optional[str_255]]

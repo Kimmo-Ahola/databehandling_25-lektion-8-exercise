@@ -17,8 +17,16 @@ Klicka runt och försök att förstå strukturen och varför vi vill dela upp ko
 
 Datan som hamnar i er databas är tagen från en helt slumpmässig källa och ni kommer att märka att det finns en hel del fel i datan.
 Detta kallas för "otvättad" data och därför kan vissa datatyper tyckas märkliga. Många kolumner är till exempel i VARCHAR för att hantera detta.
+Att "tvätta" data är en stor del av dataanalys men ingår inte i den här kursens omfång. Ni kommer dock att behöva hantera NULL/None i er Python-kod för att undvika kraschar.
+
 
 Fokus är såklart på att ni ska skriva queries med SQLAlchemy men ni bör också skriva samma queries i MySQL för att öva på det också. Dubbelkolla gärna att ni får samma svar.
+
+> OBS! Vissa frågor ber er att uppdatera kolumner. Detta behöver ni endast göra i Python.
+
+## OBS!!
+> Alla klasser saknar def __repr__(self). Ni behöver inte implementera detta eftersom det finns dataklasser i projektet.
+> Se base.py för att se MappedAsDataclass. Läs gärna på vad den gör om ni är osäkra.
 
 ## Övningar för querying
 Övningar för querying med SQLAlchemy. Skapa en funktion för varje fråga och kalla på dessa i main.py. Till exempel: 
@@ -38,41 +46,44 @@ def Q_2():
 Ni väljer själva om ni skapar en konsolmeny för detta (bra övning) eller bara kommenterar bort tidigare funktionsanrop.
 
 
-2. Det finns en film som saknar längd. Hitta denna film och uppdatera värdet till det korrekta (2h 29m)
-3. Hitta alla skådespelare som saknar efternamn. OBS! Efternamnet är inte NULL/None utan en tom sträng.
+
+
+1. Det finns en film som saknar längd. Hitta denna film och uppdatera värdet till det korrekta (2h 29m)
+1. Hitta alla skådespelare som saknar efternamn.
 	1. Skriv också ut hur många de är till antalet på en ny rad.
-4. Hur många filmer finns det som har genren "Action"?
+1. Hur många filmer finns det som har genren "Action"?
 	1. Skriv ut alla dessa filmer
-5. Hur många filmer finns det som har över 8.1 i betyg?
-6. gross_worldwide innehåller felaktig data. Skriv en query som hämtar alla rader som inte börjar med ett "$" och sätt dessa världen till NULL/None
-7. Hur många filmer finns det som är gjorda mellan 1959 och 1970 (båda årtalen är inclusive)
-8. Lista alla filmer som börjar med "The". Skriv ut antalet också på en ny rad.
-9. Lista alla filmer som har språk på Persiska.
-10. Lista alla filmer utan vinster (utan wins/win)
-11. Lista alla filmer som har vunnit minst 1 oscar
-12. Lista alla skådespelare och deras roller som har varit med i den högst rankade filmen
-13. Lista alla filmer som har Disney som produktionsbolag
-14. Vilka filmer har Chung Seo-kyung varit involverad i som en writer?
-15. Hur många writers finns det som har ett namn som innehåller minst två st 'a'?
-16. Lista alla filmer som har minst en siffra i sitt namn.
-17. Lista alla filmer som har varit med i topp #50
-18. Lista alla filmer som har en storyline relaterat till police
+1. Hur många filmer finns det som har över 8.1 i betyg?
+1. gross_worldwide innehåller felaktig data. Skriv en query som hämtar alla rader som inte börjar med ett "$" och sätt dessa världen till NULL/None
+1. Hur många filmer finns det som är gjorda mellan 1959 och 1970 (båda årtalen är inclusive)
+1. Lista alla filmer som börjar med "The". Skriv ut antalet också på en ny rad.
+1. Lista alla filmer som har språk på Persiska.
+1. Lista alla filmer utan vinster (utan wins/win)
+1. Lista alla filmer som har vunnit minst 1 oscar
+1. Lista alla skådespelare och deras roller som har varit med i den högst rankade filmen
+1. Lista alla filmer som har Disney som produktionsbolag
+1. Vilka filmer har Chung Seo-kyung varit involverad i som en writer?
+1. Hur många writers finns det som har ett namn som innehåller minst två st 'a'?
+1. Lista alla filmer som har minst en siffra i sitt namn.
+1. Lista alla filmer som har varit med i topp #50
+1. Lista alla filmer som har en storyline relaterat till police
 
 Svårare frågor
+1. Finns det några filmer som heter ungefär samma sak? (Tips: kolla om de har samma tecken i början av titeln)
 1. Lista alla roller i cast som har minst 2 st av samma namn
-2. Lägg till en ny kolumn "duration_in_minutes" och skriv en funktion som räknar om h och m till från kolumnen length till en int (nu kan vi sortera korrekt)
-3. Skriv en funktion som går igenom budget-kolumnen och sorterar bort alla icke-amerikanska värden. Ta sedan bort dollartecknet från samtliga rader och summera resultatet. (Gör detta i flera steg och dubbelkolla mellan)
-4. Gör samma sak som fråga 18 fast för gross_worldwide.
-5. Räkna ut filmernas vinstfaktor (gross/budget) och sortera i fallande ordning.
-6. Gruppera alla filmer enligt originalspråk.
-7. Gruppera alla filmer enligt originalspråk men ta denna bort gång Null/None samt unknown.
-8. Vilket produktionsbolag har flest filmer i topplistan?
-9. Vilket år har flest filmer i topplistan?
+1. Lägg till en ny kolumn "duration_in_minutes" och skriv en funktion som räknar om h och m till från kolumnen length till en int (nu kan vi sortera korrekt)
+1. Skriv en funktion som går igenom budget-kolumnen och sorterar bort alla icke-amerikanska värden. Ta sedan bort dollartecknet från samtliga rader och summera resultatet. (Gör detta i flera steg och dubbelkolla mellan)
+1. Gör samma sak som frågan ovan fast för gross_worldwide.
+1. Räkna ut filmernas vinstfaktor (gross/budget) och sortera i fallande ordning.
+1. Gruppera alla filmer enligt originalspråk.
+1. Gruppera alla filmer enligt originalspråk men ta denna bort gång Null/None samt unknown.
+1. Vilket produktionsbolag har flest filmer i topplistan?
+1. Vilket år har flest filmer i topplistan?
 	1. Skriv ut alla dessa filmer
 
-Subqueries
+Subqueries (Extra svåra!!)
 1. Visa den film som har kortast titel
-2. Visa den film som har längst titel
+1. Visa den film som har längst titel
 
 
 
@@ -81,3 +92,9 @@ Subqueries
 1. Det saknas tabeller för origin_countries. 
 2. Lägg till en egen tabell för en användare samt recensioner.
 
+
+
+
+## Fler övningar?
+
+Klistra in samtliga modeller till chatgpt/claude/ai och be om MySQL-frågor. Var specifika om ni vill ha nybörjarfrågor (räcker gott och väl till denna kurs) eller svårare frågor.
