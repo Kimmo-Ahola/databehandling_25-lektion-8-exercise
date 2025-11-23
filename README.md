@@ -1,4 +1,4 @@
-# databehandling_25-lektion-7-exercise
+# Instruktioner
 
 ## Installation
 Först skapar ni en venv som alltid
