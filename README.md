@@ -11,7 +11,7 @@ Implementation av alembic saknas för närvarande. En bra övning är att ni tar
 
 från seeding.py och kör migrationer med alembic istället.
 
-## Övning
+## Om repot
 Ni har nu en lite större kodbas och tanken är att ni ska lära er att hitta runt i koden.
 Klicka runt och försök att förstå strukturen och varför vi vill dela upp kodbasen i olika mappar och filer.
 
@@ -20,5 +20,64 @@ Detta kallas för "otvättad" data och därför kan vissa datatyper tyckas märk
 
 Fokus är såklart på att ni ska skriva queries med SQLAlchemy men ni bör också skriva samma queries i MySQL för att öva på det också. Dubbelkolla gärna att ni får samma svar.
 
-## TODO
-Lägg in olika övningar här
+## Övningar för querying
+Övningar för querying med SQLAlchemy. Skapa en funktion för varje fråga och kalla på dessa i main.py. Till exempel: 
+
+```python
+def Q_1():
+	with Session(engine) as session:
+		res = session.query()...
+		# or new style syntax
+		stmt = select(...)
+		res = session.scalars(stmt)...
+		
+def Q_2():
+	with ...
+```
+
+Ni väljer själva om ni skapar en konsolmeny för detta (bra övning) eller bara kommenterar bort tidigare funktionsanrop.
+
+
+2. Det finns en film som saknar längd. Hitta denna film och uppdatera värdet till det korrekta (2h 29m)
+3. Hitta alla skådespelare som saknar efternamn. OBS! Efternamnet är inte NULL/None utan en tom sträng.
+	1. Skriv också ut hur många de är till antalet på en ny rad.
+4. Hur många filmer finns det som har genren "Action"?
+	1. Skriv ut alla dessa filmer
+5. Hur många filmer finns det som har över 8.1 i betyg?
+6. gross_worldwide innehåller felaktig data. Skriv en query som hämtar alla rader som inte börjar med ett "$" och sätt dessa världen till NULL/None
+7. Hur många filmer finns det som är gjorda mellan 1959 och 1970 (båda årtalen är inclusive)
+8. Lista alla filmer som börjar med "The". Skriv ut antalet också på en ny rad.
+9. Lista alla filmer som har språk på Persiska.
+10. Lista alla filmer utan vinster (utan wins/win)
+11. Lista alla filmer som har vunnit minst 1 oscar
+12. Lista alla skådespelare och deras roller som har varit med i den högst rankade filmen
+13. Lista alla filmer som har Disney som produktionsbolag
+14. Vilka filmer har Chung Seo-kyung varit involverad i som en writer?
+15. Hur många writers finns det som har ett namn som innehåller minst två st 'a'?
+16. Lista alla filmer som har minst en siffra i sitt namn.
+17. Lista alla filmer som har varit med i topp #50
+18. Lista alla filmer som har en storyline relaterat till police
+
+Svårare frågor
+1. Lista alla roller i cast som har minst 2 st av samma namn
+2. Lägg till en ny kolumn "duration_in_minutes" och skriv en funktion som räknar om h och m till från kolumnen length till en int (nu kan vi sortera korrekt)
+3. Skriv en funktion som går igenom budget-kolumnen och sorterar bort alla icke-amerikanska värden. Ta sedan bort dollartecknet från samtliga rader och summera resultatet. (Gör detta i flera steg och dubbelkolla mellan)
+4. Gör samma sak som fråga 18 fast för gross_worldwide.
+5. Räkna ut filmernas vinstfaktor (gross/budget) och sortera i fallande ordning.
+6. Gruppera alla filmer enligt originalspråk.
+7. Gruppera alla filmer enligt originalspråk men ta denna bort gång Null/None samt unknown.
+8. Vilket produktionsbolag har flest filmer i topplistan?
+9. Vilket år har flest filmer i topplistan?
+	1. Skriv ut alla dessa filmer
+
+Subqueries
+1. Visa den film som har kortast titel
+2. Visa den film som har längst titel
+
+
+
+## Övningar för databasmodellering
+# TODO lägg till ERD här
+1. Det saknas tabeller för origin_countries. 
+2. Lägg till en egen tabell för en användare samt recensioner.
+
