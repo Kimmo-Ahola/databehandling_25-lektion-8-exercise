@@ -9,6 +9,7 @@ class Actor(Base):
     first_name: Mapped[str_255]
     last_name: Mapped[Optional[str_255]]
 
+    # https://dev.to/arctype/a-complete-guide-to-generated-columns-in-mysql-2lnb
     full_name: Mapped[str] = mapped_column(String(1000),
         Computed("CONCAT(IFNULL(first_name, ''), ' ', IFNULL(last_name, ''))"),
         init=False,
