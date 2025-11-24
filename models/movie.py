@@ -11,7 +11,7 @@ class Movie(Base):
 
     id: Mapped[int_pk] = mapped_column(init=False)
     url: Mapped[Optional[str_255]]
-    name: Mapped[Optional[str_255]] = mapped_column(name='title')
+    name: Mapped[Optional[str_255]] = mapped_column(name='title') # column name is title in our db but name in Python. SQLAlchemy handles that!
     score: Mapped[Optional[float]]
     top_rate: Mapped[Optional[str_255]]
     year: Mapped[Optional[int]] = mapped_column(name='release_year')
