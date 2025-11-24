@@ -24,7 +24,7 @@ Att "tvätta" data är en stor del av dataanalys men ingår inte i den här kurs
 
 Fokus är såklart på att ni ska skriva queries med SQLAlchemy men ni bör också skriva samma queries i MySQL för att öva på det också. Dubbelkolla gärna att ni får samma svar.
 
-> OBS! Vissa frågor ber er att uppdatera kolumner. Detta behöver ni endast göra i Python.
+> OBS! Vissa frågor ber er att uppdatera kolumner. Detta behöver ni endast göra i Python. Tänk också på att Base.metadata.drop_all() samt Base.metadata.create_all() skriver över era uppdateringar. Byt helst till alembic.
 
 ## OBS!!
 > Alla klasser saknar def __repr__(self). Ni behöver inte implementera detta eftersom det finns dataklasser i projektet.
