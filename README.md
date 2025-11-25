@@ -2,6 +2,7 @@
 
 ## Installation
 Först skapar ni en venv som alltid
+
 Sedan måste ni installera relevanta bibliotek i koden
 - pip install -r requirements.txt
 
@@ -9,7 +10,7 @@ Implementation av alembic saknas för närvarande. En bra övning är att ni tar
 - Base.metadata.drop_all()
 - Base.metadata.create_all()
 
-från seeding.py och kör migrationer med alembic istället.
+från seeding.py och kör migrationer med alembic istället. Ni kan göra en jättestor migration med alla klasser om ni vill.
 
 Glöm inte att ändra connection string i db.py till er egen och se till att databasen är skapad innan ni kör.
 
