@@ -5,4 +5,4 @@ class Genre(Base):
     __tablename__ = "genres"
 
     name: Mapped[str_255] = mapped_column(primary_key=True)
-    movies: Mapped[List["Movie"]] = relationship(secondary="movie_genre", back_populates="genres", init=False) # type: ignore
+    movies: Mapped[List["Movie"]] = relationship(secondary="movie_genre", back_populates="genres") # type: ignore

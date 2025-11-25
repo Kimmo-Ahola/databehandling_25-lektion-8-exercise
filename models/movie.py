@@ -9,7 +9,7 @@ from models.base import Base, str_255, int_pk, Mapped, mapped_column, relationsh
 class Movie(Base):
     __tablename__ = "movies"
 
-    id: Mapped[int_pk] = mapped_column(init=False)
+    id: Mapped[int_pk]
     url: Mapped[Optional[str_255]]
     name: Mapped[Optional[str_255]] = mapped_column(name='title') # column name is title in our db but name in Python. SQLAlchemy handles that!
     score: Mapped[Optional[float]]
@@ -25,10 +25,10 @@ class Movie(Base):
     nominations: Mapped[Optional[str_255]]
 
     # relationships are here
-    genres: Mapped[List["Genre"]] = relationship(secondary="movie_genre", back_populates="movies", init=False) # type: ignore
-    cast: Mapped[List["Cast"]] = relationship(back_populates="movie", init=False) # type: ignore
+    genres: Mapped[List["Genre"]] = relationship(secondary="movie_genre", back_populates="movies") # type: ignore
+    cast: Mapped[List["Cast"]] = relationship(back_populates="movie") # type: ignore
 
-    directors: Mapped[List["Director"]] = relationship(secondary="movie_direction", back_populates="movies", init=False) # type: ignore
-    writers: Mapped[List["Writer"]] = relationship(secondary="movie_writer", back_populates="movies", init=False) # type: ignore
+    directors: Mapped[List["Director"]] = relationship(secondary="movie_direction", back_populates="movies") # type: ignore
+    writers: Mapped[List["Writer"]] = relationship(secondary="movie_writer", back_populates="movies") # type: ignore
 
-    production_companies: Mapped[List["ProductionCompany"]] = relationship(secondary="movie_production_company", back_populates="movies", init=False) # type: ignore
+    production_companies: Mapped[List["ProductionCompany"]] = relationship(secondary="movie_production_company", back_populates="movies") # type: ignore

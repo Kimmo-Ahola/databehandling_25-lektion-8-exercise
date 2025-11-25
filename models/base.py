@@ -6,7 +6,7 @@ from typing import Annotated
 str_255 = Annotated[str, mapped_column(String(255))]
 int_pk = Annotated[int, mapped_column(Integer, primary_key=True, autoincrement=True)]
 
-class Base(MappedAsDataclass, DeclarativeBase):
+class Base(DeclarativeBase):
     metadata = MetaData(naming_convention={
         "ix": "ix_%(column_0_label)s",
         "uq": "uq_%(table_name)s_%(column_0_name)s",

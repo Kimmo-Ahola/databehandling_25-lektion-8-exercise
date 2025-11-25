@@ -5,14 +5,13 @@ from models.base import Base, int_pk, str_255, Mapped, mapped_column, relationsh
 class Actor(Base):
     __tablename__ = "actors"
 
-    id: Mapped[int_pk] = mapped_column(init=False)
+    id: Mapped[int_pk]
     first_name: Mapped[str_255]
     last_name: Mapped[Optional[str_255]]
 
     # https://dev.to/arctype/a-complete-guide-to-generated-columns-in-mysql-2lnb
     full_name: Mapped[str] = mapped_column(String(1000),
-        Computed("CONCAT(IFNULL(first_name, ''), ' ', IFNULL(last_name, ''))"),
-        init=False,
+        Computed("CONCAT(IFNULL(first_name, ''), ' ', IFNULL(last_name, ''))")
     )
 
-    cast_roles: Mapped[List["Cast"]] = relationship(back_populates="actor", init=False) # type: ignore
+    cast_roles: Mapped[List["Cast"]] = relationship(back_populates="actor") # type: ignore
