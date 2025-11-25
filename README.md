@@ -27,10 +27,6 @@ Fokus är såklart på att ni ska skriva queries med SQLAlchemy men ni bör ocks
 
 > OBS! Vissa frågor ber er att uppdatera kolumner. Detta behöver ni endast göra i Python. Tänk också på att Base.metadata.drop_all() samt Base.metadata.create_all() skriver över era uppdateringar. Byt helst till alembic.
 
-## OBS!!
-> Alla klasser saknar def __repr__(self). Ni behöver inte implementera detta eftersom det finns dataklasser i projektet.
-> Se base.py för att se MappedAsDataclass. Läs gärna på vad den gör om ni är osäkra.
-
 ## Övningar för querying
 Övningar för querying med SQLAlchemy. Skapa en funktion för varje fråga och kalla på dessa i main.py. Till exempel: 
 
