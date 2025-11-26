@@ -111,9 +111,10 @@ Subqueries (Extra svåra!!)
 1. Det saknas tabeller för origin_countries.
 > Relationen mellan movies och origin countries är many-to-many. Ni kan hitta inspiration från production_company.py
 > Vid seeding kan ni kolla hur production companies seedas i seeding.py-filen
-2. Lägg till en egen tabell för en användare samt recensioner.
-> Enkla varianten: En film kan ha en recension. En användare kan recensera flera filmer.
-> Svårare varianten: En film kan kan många recensioner från flera envändare. En användare kan recensera flera filmer.
+2. Lägg till en ny tabell för en användare samt för recensioner. Recensionerna ska inte påverka Score som finns i Movies utan vara separat från denna.
+> Enkla varianten: En film kan ha en recension. En användare kan recensera flera filmer. (One-to-Many)
+> 
+> Svårare varianten: En film kan kan många recensioner från flera envändare. En användare kan recensera flera filmer. (Many-to-Many)
 
 
 ## Fler övningar?
