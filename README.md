@@ -66,6 +66,9 @@ Ni väljer själva om ni skapar en konsolmeny för detta (bra övning) eller bar
 1. Lista alla filmer som har minst en siffra i sitt namn.
 1. Lista alla filmer som har varit med i topp #50
 1. Lista alla filmer som har en storyline relaterat till police
+1. Lista alla filmer som saknar en Genre (tips: left join)
+1. Lista alla filmer som saknar en Writer
+1. Uppdatera följande filmer så att de har svenska som originalspråk: Persona, The Seventh Seal, Wild Strawberries
 
 Svårare frågor
 1. Finns det några filmer som heter ungefär samma sak? (Tips: kolla om de har samma tecken i början av titeln)
