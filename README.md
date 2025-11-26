@@ -34,13 +34,20 @@ Fokus är såklart på att ni ska skriva queries med SQLAlchemy men ni bör ocks
 def Q_1():
 	with Session(engine) as session:
 		res = session.query()...
-		# or new style syntax
-		stmt = select(...)
-		res = session.scalars(stmt)...
 		
 def Q_2():
 	with ...
 ```
+Använd gärna type hints när ni returnerar från en funktion
+
+```Python
+def example() -> List[Actor]:
+	query: Query[Actor] = session.query(Actor)
+
+	return query.all()
+
+```
+
 
 Ni väljer själva om ni skapar en konsolmeny för detta (bra övning) eller bara kommenterar bort tidigare funktionsanrop.
 
