@@ -31,21 +31,22 @@ Fokus är såklart på att ni ska skriva queries med SQLAlchemy men ni bör ocks
 Övningar för querying med SQLAlchemy. Skapa en funktion för varje fråga och kalla på dessa i main.py. Till exempel: 
 
 ```python
-def Q_1():
-	with Session(engine) as session:
-		res = session.query()...
+from sqlalchemy.orm import Session
+def Q_1(session: Session):
+	res = session.query()...
 		
-def Q_2():
+def Q_2(session: Session):
 	with ...
 ```
 Använd gärna type hints när ni returnerar från en funktion
 
 ```Python
-def example() -> List[Actor]:
+from sqlalchemy.orm import Session, Query
+from typing import List
+def example(session: Session) -> List[Actor]:
 	query: Query[Actor] = session.query(Actor)
 
 	return query.all()
-
 ```
 
 
