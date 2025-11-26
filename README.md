@@ -88,8 +88,6 @@ Svårare frågor
 1. Vilken skådespelare har flest antal 'a' i sitt full_name? (Hint: använd Length samt replace)
 1. Testa samma fråga som övan fast med 'ö'. Får du konstiga svar i MySQL? (Hint: använd char_length istället för length)
 
-> Anledningen på sista frågan är att vår kolumn har Collation (strängjämförelse) 'utf8mb4_0900_ai_ci' där ai=accent insensitive: o och ö är alltså samma sak. Alltid bra att dubbelkolla sina resultat!
-
 Subqueries (Extra svåra!!)
 1. Visa den film som har kortast titel
 1. Visa den film som har längst titel
