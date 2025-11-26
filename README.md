@@ -2,6 +2,7 @@
 
 ## Installation
 Först skapar ni en venv som alltid
+
 Sedan måste ni installera relevanta bibliotek i koden
 - pip install -r requirements.txt
 
@@ -9,7 +10,7 @@ Implementation av alembic saknas för närvarande. En bra övning är att ni tar
 - Base.metadata.drop_all()
 - Base.metadata.create_all()
 
-från seeding.py och kör migrationer med alembic istället.
+från seeding.py och kör migrationer med alembic istället. Ni kan göra en jättestor migration med alla klasser om ni vill.
 
 Glöm inte att ändra connection string i db.py till er egen och se till att databasen är skapad innan ni kör.
 
@@ -25,10 +26,6 @@ Att "tvätta" data är en stor del av dataanalys men ingår inte i den här kurs
 Fokus är såklart på att ni ska skriva queries med SQLAlchemy men ni bör också skriva samma queries i MySQL för att öva på det också. Dubbelkolla gärna att ni får samma svar.
 
 > OBS! Vissa frågor ber er att uppdatera kolumner. Detta behöver ni endast göra i Python. Tänk också på att Base.metadata.drop_all() samt Base.metadata.create_all() skriver över era uppdateringar. Byt helst till alembic.
-
-## OBS!!
-> Alla klasser saknar def __repr__(self). Ni behöver inte implementera detta eftersom det finns dataklasser i projektet.
-> Se base.py för att se MappedAsDataclass. Läs gärna på vad den gör om ni är osäkra.
 
 ## Övningar för querying
 Övningar för querying med SQLAlchemy. Skapa en funktion för varje fråga och kalla på dessa i main.py. Till exempel: 
@@ -72,7 +69,7 @@ Ni väljer själva om ni skapar en konsolmeny för detta (bra övning) eller bar
 
 Svårare frågor
 1. Finns det några filmer som heter ungefär samma sak? (Tips: kolla om de har samma tecken i början av titeln)
-1. Lista alla roller i cast som har minst 2 st av samma namn
+1. Lista alla roller i cast som har minst 2 st av samma namn, dvs finns det filmer där kolumnen role är identisk?
 1. Lägg till en ny kolumn "duration_in_minutes" och skriv en funktion som räknar om h och m till från kolumnen length till en int (nu kan vi sortera korrekt)
 1. Skriv en funktion som går igenom budget-kolumnen och sorterar bort alla icke-amerikanska värden. Ta sedan bort dollartecknet från samtliga rader och summera resultatet. (Gör detta i flera steg och dubbelkolla mellan)
 1. Gör samma sak som frågan ovan fast för gross_worldwide.
@@ -90,11 +87,15 @@ Subqueries (Extra svåra!!)
 
 
 ## Övningar för databasmodellering
-# TODO lägg till ERD här
-1. Det saknas tabeller för origin_countries. 
+
+<img width="991" height="898" alt="image" src="https://github.com/user-attachments/assets/6eaf91f0-4851-4676-93c6-19b7aa0cb834" />
+
+1. Det saknas tabeller för origin_countries.
+> Relationen mellan movies och origin countries är many-to-many. Ni kan hitta inspiration från production_company.py
+> Vid seeding kan ni kolla hur production companies seedas i seeding.py-filen
 2. Lägg till en egen tabell för en användare samt recensioner.
-
-
+> Enkla varianten: En film kan ha en recension. En användare kan recensera flera filmer.
+> Svårare varianten: En film kan kan många recensioner från flera envändare. En användare kan recensera flera filmer.
 
 
 ## Fler övningar?
