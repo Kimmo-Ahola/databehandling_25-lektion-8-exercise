@@ -20,12 +20,12 @@ Klicka runt och försök att förstå strukturen och varför vi vill dela upp ko
 
 Datan som hamnar i er databas är tagen från en helt slumpmässig källa och ni kommer att märka att det finns en hel del fel i datan.
 Detta kallas för "otvättad" data och därför kan vissa datatyper tyckas märkliga. Många kolumner är till exempel i VARCHAR för att hantera detta.
-Att "tvätta" data är en stor del av dataanalys men ingår inte i den här kursens omfång. Ni kommer dock att behöva hantera NULL/None i er Python-kod för att undvika kraschar.
+Att "tvätta" data är en stor del av dataanalys men ingår inte i den här kursens omfång. Ni kommer dock att behöva hantera NULL/None i er Python-kod för att undvika att programmet kraschar.
 
 
 Fokus är såklart på att ni ska skriva queries med SQLAlchemy men ni bör också skriva samma queries i MySQL för att öva på det också. Dubbelkolla gärna att ni får samma svar.
 
-> OBS! Vissa frågor ber er att uppdatera kolumner. Detta behöver ni endast göra i Python. Tänk också på att Base.metadata.drop_all() samt Base.metadata.create_all() skriver över era uppdateringar. Byt helst till alembic.
+> OBS! Vissa frågor ber er att uppdatera kolumner. Detta behöver ni endast göra i Python. Tänk också på att Base.metadata.drop_all() samt Base.metadata.create_all() skriver över era uppdateringar. Byt därför helst till alembic.
 
 ## Övningar för querying
 Övningar för querying med SQLAlchemy. Skapa en funktion för varje fråga och kalla på dessa i main.py. Till exempel: 
@@ -65,9 +65,11 @@ Ni väljer själva om ni skapar en konsolmeny för detta (bra övning) eller bar
 1. Lista alla filmer som har Disney som produktionsbolag
 1. Vilka filmer har Chung Seo-kyung varit involverad i som en writer?
 1. Hur många writers finns det som har ett full_name som innehåller minst två st 'a'?
-1. Lista alla filmer som har minst en siffra i sitt namn.
-1. Lista alla filmer som har varit med i topp #50
+1. Vilka filmer har writers i frågan ovan varit medverkande i? 
+1. Lista alla filmer som har minst en siffra i sitt namn. Lista också skådespelarna som är med i den första filmen (två separata queries)
+1. Lista alla filmer som har varit med i topp #50. Lista också skådespelarna som är med i den första filmen (två separata queries)
 1. Lista alla filmer som har en storyline relaterat till police
+1. Lista alla filmer som har en storyline relaterat till police och skriv ut vilken Genre de tillhör.
 1. Lista alla filmer som saknar en Genre (tips: left join)
 1. Lista alla filmer som saknar en Writer
 1. Uppdatera följande filmer så att de har svenska som originalspråk: Persona, The Seventh Seal, Wild Strawberries
