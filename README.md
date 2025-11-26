@@ -44,7 +44,9 @@ def Q_2():
 
 Ni väljer själva om ni skapar en konsolmeny för detta (bra övning) eller bara kommenterar bort tidigare funktionsanrop.
 
-
+> Många av frågorna nedan kräver joins.
+>
+> Vissa frågor kräver funktioner. Ni hittar dessa under sqlalchemy func (from sqlalchemy import func)
 
 
 1. Det finns en film som saknar längd. Hitta denna film och uppdatera värdet till det korrekta (2h 29m)
@@ -53,7 +55,7 @@ Ni väljer själva om ni skapar en konsolmeny för detta (bra övning) eller bar
 1. Hur många filmer finns det som har genren "Action"?
 	1. Skriv ut alla dessa filmer
 1. Hur många filmer finns det som har över 8.1 i betyg?
-1. gross_worldwide innehåller felaktig data. Skriv en query som hämtar alla rader som inte börjar med ett "$" och sätt dessa världen till NULL/None
+1. gross_worldwide innehåller felaktig data. Skriv en funktion som hämtar alla rader som inte börjar med ett "$" och sätt dessa världen till NULL/None
 1. Hur många filmer finns det som är gjorda mellan 1959 och 1970 (båda årtalen är inclusive)
 1. Lista alla filmer som börjar med "The". Skriv ut antalet också på en ny rad.
 1. Lista alla filmer som har språk på Persiska.
@@ -62,7 +64,7 @@ Ni väljer själva om ni skapar en konsolmeny för detta (bra övning) eller bar
 1. Lista alla skådespelare och deras roller som har varit med i den högst rankade filmen
 1. Lista alla filmer som har Disney som produktionsbolag
 1. Vilka filmer har Chung Seo-kyung varit involverad i som en writer?
-1. Hur många writers finns det som har ett namn som innehåller minst två st 'a'?
+1. Hur många writers finns det som har ett full_name som innehåller minst två st 'a'?
 1. Lista alla filmer som har minst en siffra i sitt namn.
 1. Lista alla filmer som har varit med i topp #50
 1. Lista alla filmer som har en storyline relaterat till police
@@ -74,14 +76,16 @@ Svårare frågor
 1. Finns det några filmer som heter ungefär samma sak? (Tips: kolla om de har samma tecken i början av titeln)
 1. Lista alla roller i cast som har minst 2 st av samma namn, dvs finns det filmer där kolumnen role är identisk?
 1. Lägg till en ny kolumn "duration_in_minutes" och skriv en funktion som räknar om h och m till från kolumnen length till en int (nu kan vi sortera korrekt)
-1. Skriv en funktion som går igenom budget-kolumnen och sorterar bort alla icke-amerikanska värden. Ta sedan bort dollartecknet från samtliga rader och summera resultatet. (Gör detta i flera steg och dubbelkolla mellan)
+1. Skriv en funktion som går igenom budget-kolumnen och sorterar bort alla icke-amerikanska värden (inga dollartecken i början). Ta sedan bort dollartecknet och alla tecken som inte är siffor från samtliga rader som har värden. (Gör detta i flera steg och dubbelkolla mellan)
 1. Gör samma sak som frågan ovan fast för gross_worldwide.
+1. Efter ni har gjort de två frågorna ovan kan ni ändra datatyp på kolumnen med alembic till float/decimal och utföra aritmetik.. Se till att Base.drop_all(engine) är bortttagen.
 1. Räkna ut filmernas vinstfaktor (gross/budget) och sortera i fallande ordning.
 1. Gruppera alla filmer enligt originalspråk.
 1. Gruppera alla filmer enligt originalspråk men ta denna bort gång Null/None samt unknown.
 1. Vilket produktionsbolag har flest filmer i topplistan?
 1. Vilket år har flest filmer i topplistan?
 	1. Skriv ut alla dessa filmer
+1. Vilken skådespelare har flest antal 'a' i sitt full_name? (Hint: använd Length samt replace)
 
 Subqueries (Extra svåra!!)
 1. Visa den film som har kortast titel
