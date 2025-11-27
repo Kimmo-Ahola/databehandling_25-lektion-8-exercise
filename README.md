@@ -6,13 +6,10 @@ Först skapar ni en venv som alltid
 Sedan måste ni installera relevanta bibliotek i koden
 - pip install -r requirements.txt
 
-Implementation av alembic saknas för närvarande. En bra övning är att ni tar bort:
-- Base.metadata.drop_all()
-- Base.metadata.create_all()
-
-från seeding.py och kör migrationer med alembic istället. Ni kan göra en jättestor migration med alla klasser om ni vill.
-
 Glöm inte att ändra connection string i db.py till er egen och se till att databasen är skapad innan ni kör.
+
+Efter att ni har kört en seeding och fått in databasen kan ni kommentera bort raden
+Seeding.create_movie_database() från main.py
 
 ## Om repot
 Ni har nu en lite större kodbas och tanken är att ni ska lära er att hitta runt i koden.
