@@ -22,7 +22,7 @@ Att "tvätta" data är en stor del av dataanalys men ingår inte i den här kurs
 
 Fokus är såklart på att ni ska skriva queries med SQLAlchemy men ni bör också skriva samma queries i MySQL för att öva på det också. Dubbelkolla gärna att ni får samma svar.
 
-> OBS! Vissa frågor ber er att uppdatera kolumner. Detta behöver ni endast göra i Python. Tänk också på att Base.metadata.drop_all() samt Base.metadata.create_all() skriver över era uppdateringar. Byt därför helst till alembic.
+> OBS! Vissa frågor ber er att uppdatera kolumner. Detta behöver ni endast göra i Python. Tänk också på att Base.metadata.drop_all() samt Base.metadata.create_all() skriver över era uppdateringar.
 
 ## Övningar för querying
 Övningar för querying med SQLAlchemy. Skapa en funktion för varje fråga och kalla på dessa i main.py. Till exempel: 
@@ -85,7 +85,7 @@ Svårare frågor
 1. Lägg till en ny kolumn "duration_in_minutes" och skriv en funktion som räknar om h och m till från kolumnen length till en int (nu kan vi sortera korrekt)
 1. Skriv en funktion som går igenom budget-kolumnen och sorterar bort alla icke-amerikanska värden (inga dollartecken i början). Ta sedan bort dollartecknet och alla tecken som inte är siffor från samtliga rader som har värden. (Gör detta i flera steg och dubbelkolla mellan)
 1. Gör samma sak som frågan ovan fast för gross_worldwide.
-1. Efter ni har gjort de två frågorna ovan kan ni ändra datatyp på kolumnen med alembic till float/decimal och utföra aritmetik.. Se till att Base.drop_all(engine) är bortttagen.
+1. Efter ni har gjort de två frågorna ovan kan ni ändra datatyp på kolumnen i MySQL till float/decimal och utföra aritmetik. Se till att Base.drop_all(engine) är bortkommenterad.
 1. Räkna ut filmernas vinstfaktor (gross/budget) och sortera i fallande ordning.
 1. Gruppera alla filmer enligt originalspråk.
 1. Gruppera alla filmer enligt originalspråk men ta denna bort gång Null/None samt unknown.
